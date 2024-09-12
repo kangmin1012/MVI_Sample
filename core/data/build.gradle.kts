@@ -1,5 +1,6 @@
 plugins {
     id("kangmingu.plugin.library")
+    id("kangmingu.plugin.hilt")
 }
 
 android {

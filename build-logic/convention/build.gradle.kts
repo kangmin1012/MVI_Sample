@@ -29,5 +29,10 @@ gradlePlugin {
             id = "kangmingu.plugin.library"
             implementationClass = "kang.min.gu.convention.plugin.library.AndroidLibraryPlugin"
         }
+
+        register("HiltPlugin") {
+            id = "kangmingu.plugin.hilt"
+            implementationClass = "kang.min.gu.convention.plugin.hilt.HiltPlugin"
+        }
     }
 }
