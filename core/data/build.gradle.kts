@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "kang.min.gu.data"
 }
+
+dependencies {
+    implementation(libs.datastore.preferences)
+}
