@@ -54,6 +54,8 @@ internal class AndroidApplicationPlugin : Plugin<Project> {
                     androidTestImplementation(platform(libs.findLibrary("androidx.compose.bom").get()))
                     androidTestImplementation(libs.findBundle("test").get())
                     debugImplementation(libs.findBundle("debug.test").get())
+
+                    implementation(project(":core:domain"))
                 }
             }
         }

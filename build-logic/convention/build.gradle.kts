@@ -24,5 +24,10 @@ gradlePlugin {
             id = "kangmingu.plugin.application.compose"
             implementationClass = "kang.min.gu.convention.plugin.AndroidApplicationComposePlugin"
         }
+
+        register("AndroidLibraryPlugin") {
+            id = "kangmingu.plugin.library"
+            implementationClass = "kang.min.gu.convention.plugin.library.AndroidLibraryPlugin"
+        }
     }
 }
