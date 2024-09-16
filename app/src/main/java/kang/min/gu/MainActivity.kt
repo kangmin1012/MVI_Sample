@@ -58,7 +58,7 @@ fun MainScreen() {
                     label = { Text("텍스트 입력") }
                 )
 
-                Text("현재 서버에 저장된 값은 \"\" 입니다.")
+                Text("현재 저장된 값은 \"\" 입니다.")
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
