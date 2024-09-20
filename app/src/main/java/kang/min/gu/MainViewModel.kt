@@ -18,7 +18,9 @@ class MainViewModel @Inject constructor(
 ) {
 
     init {
-        sendEvent(MainScreenReducer.MainScreenEvent.LoadText(""))
+        viewModelScope.launch {
+            sendEvent(MainScreenReducer.MainScreenEvent.LoadText(loadTextUseCase()))
+        }
     }
 
     fun loadText() {

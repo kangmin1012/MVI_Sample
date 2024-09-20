@@ -7,7 +7,8 @@ class MainScreenReducer :
     Reducer<MainScreenReducer.MainScreenState, MainScreenReducer.MainScreenEvent, MainScreenReducer.MainScreenEffect> {
     @Immutable
     data class MainScreenState(
-        val storageText: String? = null
+        val storageText: String? = null,
+        val isShowSavedText: Boolean = false
     ) : Reducer.ViewState
 
     @Immutable
@@ -27,11 +28,11 @@ class MainScreenReducer :
     ): Pair<MainScreenState, MainScreenEffect?> {
         return when (event) {
             is MainScreenEvent.LoadText -> {
-                previousState.copy(storageText = event.text) to MainScreenEffect.ShowToast("저장된 텍스트를 불러왔습니다.")
+                previousState.copy(storageText = event.text, isShowSavedText = true) to MainScreenEffect.ShowToast("저장된 텍스트를 불러왔습니다.")
             }
 
             is MainScreenEvent.SaveText -> {
-                previousState.copy(storageText = event.text) to MainScreenEffect.ShowToast("텍스트를 저장했습니다.")
+                previousState.copy(storageText = event.text, isShowSavedText = false) to MainScreenEffect.ShowToast("텍스트를 저장했습니다.")
             }
         }
     }

@@ -1,13 +1,13 @@
 [versions]
-agp = "8.6.0"
+agp = "8.6.1"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.5"
+lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.2"
-composeBom = "2024.09.01"
+composeBom = "2024.09.02"
 jetbrainsKotlinJvm = "1.9.0"
 javax-inject = "1"
 appcompat = "1.7.0"
@@ -23,6 +23,8 @@ compose-compiler-extension = { module = "org.jetbrains.kotlin:compose-compiler-g
 # ktx
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
 
 # junit & espresso
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -63,7 +65,9 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 [bundles]
 kotlin-ktx = [
     "androidx-core-ktx",
-    "androidx-lifecycle-runtime-ktx"
+    "androidx-lifecycle-runtime-ktx",
+    "androidx-lifecycle-runtime-compose",
+    "androidx-lifecycle-viewmodel-compose"
 ]
 
 compose = [
