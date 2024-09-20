@@ -27,8 +27,14 @@ abstract class BaseViewModel<State : Reducer.ViewState, Event : Reducer.ViewEven
     }
 
     fun sendEvent(event: Event) {
+        val (newState, _) = reducer.reduce(_state.value, event)
+        _state.tryEmit(newState)
+    }
+
+    fun sendEventWithEffect(event: Event) {
         val (newState, effect) = reducer.reduce(_state.value, event)
         _state.tryEmit(newState)
+
         effect?.let {
             sendEffect(it)
         }
