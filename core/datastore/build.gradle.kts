@@ -4,9 +4,9 @@ plugins {
 }
 
 android {
-    namespace = "kang.min.gu.domain"
+    namespace = "kang.min.gu.datastore"
 }
 
 dependencies {
-    implementation(project(":core:data"))
+    implementation(libs.datastore.preferences)
 }

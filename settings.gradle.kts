@@ -23,5 +23,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "MVI_Sample"
 include(":app")
-include(":core:domain")
 include(":core:data")
+include(":core:datastore")
+include(":core:domain")

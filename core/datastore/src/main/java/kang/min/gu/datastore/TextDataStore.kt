@@ -1,11 +1,11 @@
-package kang.min.gu.data.datastore
+package kang.min.gu.datastore
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kang.min.gu.data.datastore.TextDataStore.Companion.TEXT_STORE_PREFERENCES
+import kang.min.gu.datastore.TextDataStore.Companion.TEXT_STORE_PREFERENCES
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
