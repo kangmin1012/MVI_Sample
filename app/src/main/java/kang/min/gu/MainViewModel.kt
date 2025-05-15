@@ -19,20 +19,20 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            sendEvent(MainScreenReducer.MainScreenEvent.LoadText(loadTextUseCase()))
+            sendEvent(MainScreenReducer.MainScreenEvent.InitText(loadTextUseCase()))
         }
     }
 
     fun loadText() {
         viewModelScope.launch {
-            sendEventWithEffect(MainScreenReducer.MainScreenEvent.LoadText(loadTextUseCase()))
+            sendEvent(MainScreenReducer.MainScreenEvent.LoadText(loadTextUseCase()))
         }
     }
 
     fun saveText(text: String) {
         viewModelScope.launch {
             saveTextUseCase(text)
-            sendEventWithEffect(MainScreenReducer.MainScreenEvent.SaveText(text))
+            sendEvent(MainScreenReducer.MainScreenEvent.SaveText(text))
         }
     }
 }

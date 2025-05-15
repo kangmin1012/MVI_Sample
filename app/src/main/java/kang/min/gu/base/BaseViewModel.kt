@@ -1,42 +1,48 @@
 package kang.min.gu.base
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.runningFold
+import kotlinx.coroutines.flow.stateIn
 
 abstract class BaseViewModel<State : Reducer.ViewState, Event : Reducer.ViewEvent, Effect : Reducer.ViewEffect>(
     initialState: State,
     private val reducer: Reducer<State, Event, Effect>
 ) : ViewModel() {
-    private val _state = MutableStateFlow(initialState)
-    val state = _state.asStateFlow()
 
-    private val _event = MutableSharedFlow<Event>()
-    val event = _event.asSharedFlow()
+    private val _event = Channel<Event>(capacity = Channel.CONFLATED)
+
+    val state = _event.receiveAsFlow()
+        .runningFold(initialState, ::reduceState)
+        .stateIn(viewModelScope, SharingStarted.Eagerly, initialState)
 
     private val _effects = Channel<Effect>(capacity = Channel.CONFLATED)
     val effect = _effects.receiveAsFlow()
 
+    private fun reduceState(state: State, event: Event): State {
+        val (newState, effect) = reducer.reduce(state, event)
 
-    fun sendEffect(effect: Effect) {
-        _effects.trySend(effect)
+        effect?.let {
+            _effects.trySend(effect)
+        }
+
+        return newState
     }
 
     fun sendEvent(event: Event) {
-        val (newState, _) = reducer.reduce(_state.value, event)
-        _state.tryEmit(newState)
+        _event.trySend(event)
     }
 
-    fun sendEventWithEffect(event: Event) {
-        val (newState, effect) = reducer.reduce(_state.value, event)
-        _state.tryEmit(newState)
-
-        effect?.let {
-            sendEffect(it)
-        }
+    override fun onCleared() {
+        super.onCleared()
+        _event.cancel()
+        _effects.cancel()
     }
 }

@@ -13,6 +13,7 @@ class MainScreenReducer :
 
     @Immutable
     sealed interface MainScreenEvent : Reducer.ViewEvent {
+        data class InitText(val text: String?) : MainScreenEvent
         data class LoadText(val text: String?) : MainScreenEvent
         data class SaveText(val text: String?) : MainScreenEvent
     }
@@ -27,6 +28,10 @@ class MainScreenReducer :
         event: MainScreenEvent
     ): Pair<MainScreenState, MainScreenEffect?> {
         return when (event) {
+            is MainScreenEvent.InitText -> {
+                previousState.copy(storageText = event.text, isShowSavedText = true) to null
+            }
+
             is MainScreenEvent.LoadText -> {
                 previousState.copy(storageText = event.text, isShowSavedText = true) to MainScreenEffect.ShowToast("저장된 텍스트를 불러왔습니다.")
             }
